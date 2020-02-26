@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  align-items: center;
+  margin-top: 50px;
+  margin-left: 10px;
+  flex-direction: column;
+
+  .register-form {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    .workplace-content{
+      display: flex;
+      border: none;
+    }
+    .add-button-container{
+      display: flex;
+      justify-content: flex-end;
+    }
+
+
+  }
+
+}
+

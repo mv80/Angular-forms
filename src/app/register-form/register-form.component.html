@@ -1,0 +1,41 @@
+<section>
+  <div class="container">
+    <h3>Register : </h3>
+    <form novalidate class="register-form" #registerForm="ngForm" (ngSubmit)="register(registerForm.value)">
+      <mat-form-field class="example-full-width">
+        <input autocomplete="off" matInput placeholder="enter first name" [(ngModel)]="user.firstName" name="firstName" #firstName="ngModel" required >
+       <mat-error *ngIf="firstName.errors?.required">first name is required</mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input autocomplete="off" matInput placeholder="enter last name" [(ngModel)]="user.lastName" name="lastName" #lastName="ngModel" required>
+        <mat-error *ngIf="lastName.errors?.required">last name is required</mat-error>
+      </mat-form-field>
+      <h4>please enter data for your previous work places :</h4>
+      <div *ngFor="let workplace of user.previousWorkplaces; let i = index">
+        <fieldset class="workplace-content" ngModelGroup="workPlace-{{i}}">
+          <mat-form-field class="example-full-width">
+            <input autocomplete="off" matInput placeholder="enter work place name" id="workplace.workPlaceName" [(ngModel)]="workplace.workPlaceName" name="workPlaceName-{{i}}" #workPlaceName="ngModel" required>
+            <mat-error *ngIf="workPlaceName.errors?.required">workplace name is required</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput [matDatepicker]="startDate"  [max]="maxDate" [min]="minDate" name="startDate-{{i}}" [(ngModel)]="workplace.startDate" placeholder="Choose a date">
+            <mat-datepicker-toggle matSuffix  [for]="startDate"></mat-datepicker-toggle>
+            <mat-datepicker #startDate></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput [matDatepicker]="endDate" name="endDate-{{i}}"  [max]="maxDate" [min]="minDate" [(ngModel)]="workplace.endDate" placeholder="Choose a date">
+            <mat-datepicker-toggle matSuffix   [for]="endDate"></mat-datepicker-toggle>
+            <mat-datepicker [startAt]="user.previousWorkplaces[i]?.startDate" #endDate></mat-datepicker>
+          </mat-form-field>
+
+        </fieldset>
+
+      </div>
+      <div class="add-button-container">
+        <button mat-button [disabled]="user.previousWorkplaces.length === maxNumberOfPreviosWorkPlaces"  (click)="AddWorkPlace()" type="button">Add work place</button>
+      </div>
+
+      <button [disabled]="registerForm.invalid || registerForm.submitted"  mat-button color="primary" type="submit">Register</button>
+    </form>
+  </div>
+</section>
